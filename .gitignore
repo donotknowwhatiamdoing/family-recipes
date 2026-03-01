@@ -1,0 +1,20 @@
+# Editor
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.*
+
+# Dependencies / build (common)
+node_modules/
+dist/
+build/
+coverage/
+
