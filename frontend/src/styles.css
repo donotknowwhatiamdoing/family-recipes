@@ -1,0 +1,264 @@
+:root {
+  font-family: "Nunito Sans", "Segoe UI", sans-serif;
+  color: #1f2937;
+  background: linear-gradient(180deg, #fff8ef 0%, #fff 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 0.75rem;
+  padding: 0.75rem;
+}
+
+.topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.topbar h1 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.topbar-main {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.topbar-meta {
+  margin: 0;
+  font-size: 0.86rem;
+  color: #4b5563;
+  text-transform: capitalize;
+}
+
+.topbar-side {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.user-badge {
+  display: grid;
+  gap: 0.1rem;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background: #fff;
+  text-align: right;
+}
+
+.user-label,
+.user-party {
+  font-size: 0.72rem;
+  color: #6b7280;
+}
+
+.primary-btn {
+  border: 0;
+  border-radius: 999px;
+  background: #005f73;
+  color: #fff;
+  padding: 0.6rem 0.95rem;
+}
+
+.content {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.search-panel input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  padding: 0.7rem 0.8rem;
+  font-size: 0.95rem;
+  background: #fff;
+}
+
+.insights-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fff6df 0%, #ffe6c7 100%);
+  border: 1px solid #f1d4a4;
+}
+
+.insights-head h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.insights-head p {
+  margin: 0.3rem 0 0;
+  color: #5b4630;
+  font-size: 0.9rem;
+}
+
+.secondary-btn {
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  background: #fff;
+  color: #1f2937;
+  padding: 0.5rem 0.85rem;
+  white-space: nowrap;
+}
+
+.info-note {
+  margin: 0;
+  border: 1px solid #f8d7da;
+  border-radius: 12px;
+  background: #fff6f7;
+  color: #7f1d1d;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.9rem;
+}
+
+.loading-note {
+  margin: 0;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #dbe2ea;
+  padding: 0.75rem;
+  color: #334155;
+}
+
+.idea-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr;
+}
+
+.idea-card {
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  padding: 0.85rem;
+  box-shadow: 0 8px 22px rgba(17, 24, 39, 0.06);
+}
+
+.idea-card h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.idea-card p {
+  color: #4b5563;
+  margin: 0.45rem 0;
+}
+
+.idea-action {
+  font-size: 0.82rem;
+  color: #0f766e;
+  font-weight: 700;
+}
+
+.chat-panel {
+  border-radius: 16px;
+  border: 1px solid #dbe2ea;
+  background: #ffffff;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 260px;
+  max-height: 320px;
+}
+
+.chat-head {
+  padding: 0.65rem 0.8rem;
+  font-weight: 700;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.chat-messages {
+  overflow: auto;
+  padding: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.msg {
+  border-radius: 12px;
+  padding: 0.45rem 0.6rem;
+  max-width: 88%;
+  line-height: 1.25;
+}
+
+.msg.user {
+  margin-left: auto;
+  background: #dbeafe;
+}
+
+.msg.assistant {
+  background: #f3f4f6;
+}
+
+.chat-form {
+  border-top: 1px solid #e5e7eb;
+  padding: 0.55rem;
+  display: flex;
+  gap: 0.45rem;
+}
+
+.chat-form input {
+  flex: 1;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 0.5rem 0.65rem;
+}
+
+.chat-form button {
+  border: 0;
+  border-radius: 10px;
+  background: #0f766e;
+  color: #fff;
+  padding: 0.5rem 0.7rem;
+}
+
+@media (min-width: 800px) {
+  .app-shell {
+    grid-template-columns: 1fr 340px;
+    grid-template-rows: auto 1fr;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .topbar {
+    grid-column: 1 / -1;
+    align-items: center;
+  }
+
+  .content {
+    grid-column: 1 / 2;
+  }
+
+  .idea-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .chat-panel {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    max-height: none;
+    min-height: 0;
+  }
+}

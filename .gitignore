@@ -7,10 +7,13 @@ Thumbs.db
 
 # Logs
 *.log
+.run/
 
 # Environment
 .env
 .env.*
+!.env.example
+!**/.env.example
 
 # Dependencies / build (common)
 node_modules/
@@ -18,4 +21,3 @@ dist/
 build/
 coverage/
 _docs/
-

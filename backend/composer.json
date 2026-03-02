@@ -1,0 +1,9 @@
+{
+  "name": "family/recipes-api",
+  "description": "Minimal PHP API for family recipes",
+  "type": "project",
+  "require": {
+    "php": "^8.1"
+  }
+}
+
