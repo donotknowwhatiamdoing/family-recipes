@@ -30,6 +30,18 @@ _docs/   (lokal/temporär, via .gitignore ausgeschlossen)
 
 ## Lokaler Start
 
+### Alles mit einem Befehl (empfohlen)
+
+```bash
+npm install
+npm run dev:all
+```
+
+Damit starten automatisch:
+- Docker MariaDB
+- PHP-Backend auf `http://127.0.0.1:8000`
+- Frontend auf `http://127.0.0.1:5173`
+
 ### Backend
 
 ```bash

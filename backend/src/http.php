@@ -9,6 +9,13 @@ function json_response(array $data, int $status = 200): void
     echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 }
 
+function html_response(string $html, int $status = 200): void
+{
+    http_response_code($status);
+    header('Content-Type: text/html; charset=utf-8');
+    echo $html;
+}
+
 function read_json_body(): array
 {
     $raw = file_get_contents('php://input');
@@ -19,4 +26,3 @@ function read_json_body(): array
     $decoded = json_decode($raw, true);
     return is_array($decoded) ? $decoded : [];
 }
-

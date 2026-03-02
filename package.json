@@ -1,0 +1,14 @@
+{
+  "name": "family-recipes-dev",
+  "private": true,
+  "scripts": {
+    "dev:db": "docker compose up -d",
+    "dev:backend": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/dev-backend.ps1",
+    "dev:frontend": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/dev-frontend.ps1",
+    "dev:all": "npm run dev:db && concurrently -n backend,frontend -c cyan,magenta \"npm run dev:backend\" \"npm run dev:frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
+

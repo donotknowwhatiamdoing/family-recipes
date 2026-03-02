@@ -96,7 +96,7 @@ function ai_chat_request(string $systemPrompt, string $userPrompt, bool $jsonMod
         CURLOPT_POST => true,
         CURLOPT_HTTPHEADER => $headers,
         CURLOPT_POSTFIELDS => json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
-        CURLOPT_TIMEOUT => 30,
+        CURLOPT_TIMEOUT => $jsonMode ? 60 : 30,
     ]);
 
     $result = curl_exec($ch);
@@ -105,11 +105,15 @@ function ai_chat_request(string $systemPrompt, string $userPrompt, bool $jsonMod
     curl_close($ch);
 
     if ($errno !== 0 || $result === false || $status >= 400) {
+        error_log("AI request failed: errno=$errno, status=$status, response=" . substr((string)$result, 0, 500));
+        // Store debug info for callers that need it
+        $GLOBALS['_ai_last_error'] = "HTTP $status, curl_errno=$errno, body=" . substr((string)$result, 0, 300);
         return null;
     }
 
     $data = json_decode($result, true);
     if (!is_array($data)) {
+        $GLOBALS['_ai_last_error'] = "Invalid JSON response: " . substr((string)$result, 0, 300);
         return null;
     }
 
@@ -136,6 +140,7 @@ function ai_chat_request(string $systemPrompt, string $userPrompt, bool $jsonMod
         }
     }
 
+    $GLOBALS['_ai_last_error'] = "No content in response: " . substr(json_encode($data), 0, 300);
     return null;
 }
 

@@ -32,6 +32,11 @@ CREATE TABLE IF NOT EXISTS recipes (
   created_by_user_id BIGINT UNSIGNED NOT NULL,
   title VARCHAR(180) NOT NULL,
   description TEXT NULL,
+  day_time ENUM('fruehstueck','mittag','abend','snack') NULL,
+  kcal_per_serving DECIMAL(8,2) NULL,
+  protein_g_per_serving DECIMAL(8,2) NULL,
+  carbs_g_per_serving DECIMAL(8,2) NULL,
+  fat_g_per_serving DECIMAL(8,2) NULL,
   servings SMALLINT UNSIGNED NULL,
   prep_minutes SMALLINT UNSIGNED NULL,
   cook_minutes SMALLINT UNSIGNED NULL,
@@ -44,6 +49,7 @@ CREATE TABLE IF NOT EXISTS recipes (
   KEY idx_recipes_owner_party (owner_party_id),
   KEY idx_recipes_created_by (created_by_user_id),
   KEY idx_recipes_visibility (visibility),
+  KEY idx_recipes_day_time (day_time),
   FULLTEXT KEY ftx_recipes_title_desc (title, description),
   CONSTRAINT fk_recipes_owner_party FOREIGN KEY (owner_party_id) REFERENCES parties(id)
     ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -182,5 +188,18 @@ CREATE TABLE IF NOT EXISTS chat_messages (
     ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-SET FOREIGN_KEY_CHECKS = 1;
+CREATE TABLE IF NOT EXISTS auth_tokens (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  user_id BIGINT UNSIGNED NOT NULL,
+  token_hash CHAR(64) NOT NULL,
+  expires_at DATETIME NULL,
+  last_used_at DATETIME NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_auth_tokens_token_hash (token_hash),
+  KEY idx_auth_tokens_user_id (user_id),
+  CONSTRAINT fk_auth_tokens_user FOREIGN KEY (user_id) REFERENCES users(id)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+SET FOREIGN_KEY_CHECKS = 1;

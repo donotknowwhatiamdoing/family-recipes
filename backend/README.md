@@ -32,12 +32,28 @@ OPENROUTER_APP_TITLE=Familien-Rezepte
 
 Wichtig: API-Keys nur im Backend speichern, nicht im Frontend.
 
-## API-Endpoints (Start)
+## API-Endpoints (MVP)
 
 - `GET /api/health`
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `GET /api/me`
+- `GET /api/recipes`
+- `GET /api/recipes/search-options`
+- `POST /api/recipes`
+- `GET /api/recipes/{id}`
+- `PUT /api/recipes/{id}`
+- `DELETE /api/recipes/{id}`
+- `POST /api/recipes/{id}/share-internal`
+- `POST /api/recipes/{id}/share-public`
+- `GET /api/recipes/{id}/print`
+- `GET /api/public/{token}`
 - `POST /api/chat`
 - `GET /api/insights?hour=8&locale=de-DE`
-- Alternativ bei `/api` als eigener Host/Ordner: `GET /health`, `POST /chat`
+
+Beispiel Rezeptsuche:
+
+`GET /api/recipes?q=auflauf&ingredients=eier,nudeln&tags=schnell,familie&day_time=abend&max_minutes=45&max_kcal=650&min_protein=20&max_carbs=70&max_fat=30`
 
 Beispiel für `/api/chat`:
 

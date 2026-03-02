@@ -1,7 +1,9 @@
+/* ===== Base ===== */
 :root {
   font-family: "Nunito Sans", "Segoe UI", sans-serif;
   color: #1f2937;
   background: linear-gradient(180deg, #fff8ef 0%, #fff 100%);
+  line-height: 1.5;
 }
 
 * {
@@ -12,6 +14,7 @@ body {
   margin: 0;
 }
 
+/* ===== Layout ===== */
 .app-shell {
   min-height: 100vh;
   display: grid;
@@ -20,6 +23,7 @@ body {
   padding: 0.75rem;
 }
 
+/* ===== Topbar ===== */
 .topbar {
   display: flex;
   align-items: flex-start;
@@ -54,35 +58,188 @@ body {
   justify-content: flex-end;
 }
 
-.user-badge {
-  display: grid;
-  gap: 0.1rem;
-  padding: 0.45rem 0.65rem;
-  border: 1px solid #d1d5db;
-  border-radius: 12px;
-  background: #fff;
-  text-align: right;
-}
-
-.user-label,
-.user-party {
-  font-size: 0.72rem;
-  color: #6b7280;
-}
-
+/* ===== Buttons ===== */
 .primary-btn {
   border: 0;
-  border-radius: 999px;
+  border-radius: 10px;
   background: #005f73;
   color: #fff;
-  padding: 0.6rem 0.95rem;
+  padding: 0.55rem 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
 }
 
+.primary-btn:hover {
+  background: #004a5a;
+  transform: translateY(-1px);
+}
+
+.secondary-btn {
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #fff;
+  color: #1f2937;
+  padding: 0.55rem 0.95rem;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.secondary-btn:hover {
+  background: #f9fafb;
+}
+
+/* ===== Content ===== */
 .content {
   display: grid;
   gap: 0.75rem;
+  align-content: start;
 }
 
+/* ===== Greeting Banner ===== */
+.greeting-banner {
+  padding: 1.2rem 1rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #e0f2fe 0%, #fef3c7 100%);
+  border: 1px solid #bae6fd;
+}
+
+.greeting-text {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #0c4a6e;
+}
+
+.greeting-tagline {
+  margin: 0.3rem 0 0;
+  font-size: 1rem;
+  color: #155e75;
+}
+
+.greeting-date {
+  margin: 0.4rem 0 0;
+  font-size: 0.85rem;
+  color: #6b7280;
+  text-transform: capitalize;
+}
+
+/* ===== Dashboard Sections ===== */
+.dashboard-section {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.section-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #374151;
+}
+
+.recipe-row {
+  display: flex;
+  gap: 0.65rem;
+  overflow-x: auto;
+  padding-bottom: 0.4rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+/* ===== Recipe Card ===== */
+.recipe-card {
+  min-width: 200px;
+  max-width: 260px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  padding: 0.75rem;
+  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.recipe-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(17, 24, 39, 0.1);
+}
+
+.recipe-card-body {
+  flex: 1;
+}
+
+.recipe-card-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.recipe-card-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.recipe-card-desc {
+  margin: 0.2rem 0 0;
+  font-size: 0.82rem;
+  color: #6b7280;
+  line-height: 1.35;
+}
+
+.recipe-card-meta {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-top: 0.35rem;
+}
+
+.recipe-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.recipe-meta-item {
+  font-size: 0.78rem;
+  color: #6b7280;
+}
+
+/* ===== Favorite Button ===== */
+.fav-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  border: 0;
+  background: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #d1d5db;
+  transition: color 0.15s ease, transform 0.15s ease;
+  padding: 0.15rem;
+  line-height: 1;
+}
+
+.fav-btn:hover {
+  transform: scale(1.2);
+}
+
+.fav-btn.fav-active {
+  color: #ef4444;
+}
+
+/* ===== Search Panel ===== */
 .search-panel input {
   width: 100%;
   border: 1px solid #d1d5db;
@@ -90,8 +247,16 @@ body {
   padding: 0.7rem 0.8rem;
   font-size: 0.95rem;
   background: #fff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
+.search-panel input:focus {
+  outline: none;
+  border-color: #005f73;
+  box-shadow: 0 0 0 3px rgba(0, 95, 115, 0.1);
+}
+
+/* ===== Insights Head ===== */
 .insights-head {
   display: flex;
   align-items: center;
@@ -114,15 +279,56 @@ body {
   font-size: 0.9rem;
 }
 
-.secondary-btn {
-  border: 1px solid #d1d5db;
-  border-radius: 999px;
-  background: #fff;
-  color: #1f2937;
-  padding: 0.5rem 0.85rem;
-  white-space: nowrap;
+/* ===== Profile Menu ===== */
+.profile-menu {
+  position: relative;
 }
 
+.profile-btn {
+  min-width: 120px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  right: 0;
+  min-width: 170px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 10px 22px rgba(17, 24, 39, 0.12);
+  overflow: hidden;
+  z-index: 20;
+}
+
+.dropdown-item {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fff;
+  text-align: left;
+  padding: 0.55rem 0.75rem;
+  font: inherit;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.dropdown-item:hover:not(:disabled) {
+  background: #f9fafb;
+}
+
+.dropdown-item:last-child {
+  border-bottom: 0;
+}
+
+.dropdown-item:disabled {
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* ===== Notes ===== */
 .info-note {
   margin: 0;
   border: 1px solid #f8d7da;
@@ -142,6 +348,7 @@ body {
   color: #334155;
 }
 
+/* ===== Idea Grid ===== */
 .idea-grid {
   display: grid;
   gap: 0.75rem;
@@ -154,6 +361,12 @@ body {
   background: #fff;
   padding: 0.85rem;
   box-shadow: 0 8px 22px rgba(17, 24, 39, 0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.idea-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(17, 24, 39, 0.1);
 }
 
 .idea-card h3 {
@@ -172,20 +385,179 @@ body {
   font-weight: 700;
 }
 
+/* ===== Forms ===== */
+.form-grid {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.6rem;
+}
+
+.form-grid input,
+.form-grid textarea,
+.form-grid select,
+.form-row input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 0.55rem 0.65rem;
+  font: inherit;
+  transition: border-color 0.15s ease;
+}
+
+.form-grid input:focus,
+.form-grid textarea:focus,
+.form-grid select:focus,
+.form-row input:focus {
+  outline: none;
+  border-color: #005f73;
+}
+
+.form-grid textarea {
+  min-height: 72px;
+  resize: vertical;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.45rem;
+}
+
+.form-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.form-label > span {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #475569;
+  padding-left: 0.15rem;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.card-actions button,
+.card-actions a,
+.form-grid button {
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #f8fafc;
+  color: #0f172a;
+  padding: 0.35rem 0.7rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.small-note {
+  font-size: 0.82rem;
+  word-break: break-all;
+}
+
+/* ===== Import Drop Zone ===== */
+.import-zone {
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.import-zone.drag-over {
+  border-color: #005f73;
+  background: #f0f9ff;
+}
+
+.import-zone-label {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0 0 0.6rem;
+}
+
+.import-row {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.import-row input {
+  flex: 1;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0.45rem 0.6rem;
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.import-or {
+  font-size: 0.82rem;
+  color: #9ca3af;
+  margin: 0.5rem 0;
+}
+
+.import-file-btn {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #f8fafc;
+  padding: 0.4rem 0.8rem;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.import-status {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: #005f73;
+}
+
+/* ===== Chat ===== */
 .chat-panel {
+  position: fixed;
+  right: 0.9rem;
+  bottom: 0.9rem;
+  width: min(380px, calc(100vw - 1.2rem));
+  height: min(420px, 72vh);
+  z-index: 40;
   border-radius: 16px;
   border: 1px solid #dbe2ea;
   background: #ffffff;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  min-height: 260px;
-  max-height: 320px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.22);
+  animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .chat-head {
   padding: 0.65rem 0.8rem;
   font-weight: 700;
   border-bottom: 1px solid #e5e7eb;
+}
+
+.chat-head-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.chat-minimize {
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  background: #fff;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.8rem;
+  cursor: pointer;
 }
 
 .chat-messages {
@@ -200,7 +572,7 @@ body {
   border-radius: 12px;
   padding: 0.45rem 0.6rem;
   max-width: 88%;
-  line-height: 1.25;
+  line-height: 1.35;
 }
 
 .msg.user {
@@ -232,18 +604,434 @@ body {
   background: #0f766e;
   color: #fff;
   padding: 0.5rem 0.7rem;
+  cursor: pointer;
+}
+
+.chat-launcher {
+  position: fixed;
+  right: 0.9rem;
+  bottom: 0.9rem;
+  z-index: 40;
+  border: 0;
+  border-radius: 999px;
+  background: #0f766e;
+  color: #fff;
+  font-weight: 700;
+  padding: 0.7rem 1rem;
+  box-shadow: 0 10px 22px rgba(15, 118, 110, 0.35);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.chat-launcher:hover {
+  transform: scale(1.05);
+}
+
+/* ===== Modal ===== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(15, 23, 42, 0.45);
+  display: grid;
+  place-items: center;
+  padding: 0.8rem;
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-card {
+  width: min(920px, 100%);
+  max-height: 88vh;
+  overflow: auto;
+  border-radius: 16px;
+  border: 1px solid #dbe2ea;
+  background: #fff;
+  padding: 0.85rem;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.28);
+}
+
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.modal-head h3 {
+  margin: 0;
+}
+
+/* ===== Recipe Card Clickable ===== */
+.recipe-card-clickable {
+  cursor: pointer;
+}
+
+/* ===== Recipe Detail Modal ===== */
+.recipe-detail {
+  max-width: 680px;
+}
+
+.detail-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.fav-btn-inline {
+  border: 0;
+  background: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #d1d5db;
+  transition: color 0.15s ease, transform 0.15s ease;
+  padding: 0.15rem 0.3rem;
+  line-height: 1;
+}
+
+.fav-btn-inline:hover {
+  transform: scale(1.2);
+}
+
+.fav-btn-inline.fav-active {
+  color: #ef4444;
+}
+
+.detail-print-btn {
+  font-size: 0.82rem;
+  padding: 0.3rem 0.65rem;
+  text-decoration: none;
+}
+
+.detail-desc {
+  color: #4b5563;
+  margin: 0.6rem 0;
+  line-height: 1.5;
+}
+
+.detail-meta-row {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin: 0.5rem 0;
+}
+
+.detail-meta-pill {
+  font-size: 0.78rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.detail-nutrition {
+  margin: 0.8rem 0;
+  padding: 0.75rem;
+  border-radius: 12px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+.detail-nutrition h4 {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: #166534;
+}
+
+.nutrition-grid {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.nutrition-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+}
+
+.nutrition-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #166534;
+}
+
+.nutrition-label {
+  font-size: 0.72rem;
+  color: #4ade80;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.detail-section {
+  margin: 0.8rem 0;
+}
+
+.detail-section h4 {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+}
+
+.detail-ingredients {
+  margin: 0;
+  padding-left: 1.2rem;
+  list-style: disc;
+}
+
+.detail-ingredients li {
+  margin-bottom: 0.25rem;
+  line-height: 1.4;
+}
+
+.detail-steps {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.detail-steps li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.detail-tags {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin: 0.6rem 0;
+}
+
+.detail-footer {
+  margin: 0.8rem 0 0;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/* ===== Topbar Title Row ===== */
+.topbar-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.topbar-back {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  padding: 0.25rem 0.55rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: background 0.15s ease;
+}
+
+.topbar-back:hover {
+  background: #f3f4f6;
+}
+
+.topbar-party {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #005f73;
+  background: #e0f2fe;
+  padding: 0.15rem 0.55rem;
+  border-radius: 8px;
+}
+
+/* ===== Party Picker ===== */
+.party-picker {
+  display: grid;
+  gap: 1.2rem;
+  padding: 1rem 0;
+}
+
+.party-picker-header {
+  text-align: center;
+}
+
+.party-picker-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #0c4a6e;
+}
+
+.party-picker-header p {
+  margin: 0.4rem 0 0;
+  color: #4b5563;
+}
+
+.party-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.party-card {
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
+  background: #fff;
+  padding: 1.2rem 1rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.05);
+  font: inherit;
+}
+
+.party-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(17, 24, 39, 0.12);
+  border-color: #005f73;
+}
+
+.party-card-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.party-card-count {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+/* ===== My Recipes ===== */
+.my-recipes {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.my-recipes-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.my-recipes-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.my-recipes-list {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.my-recipe-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  transition: background 0.1s ease;
+}
+
+.my-recipe-item:hover {
+  background: #f9fafb;
+}
+
+.my-recipe-info {
+  flex: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.my-recipe-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.my-recipe-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.my-recipe-favs {
+  font-size: 0.82rem;
+  color: #ef4444;
+}
+
+.recipe-badge-sm {
+  font-size: 0.68rem;
+  padding: 0.1rem 0.35rem;
+}
+
+.danger-btn {
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: #b91c1c;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+  font: inherit;
+  transition: background 0.15s ease;
+}
+
+.danger-btn:hover:not(:disabled) {
+  background: #fee2e2;
+}
+
+.danger-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===== Auth Modal ===== */
+.auth-modal {
+  max-width: 420px;
+}
+
+.auth-modal .idea-card {
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+.auth-modal .idea-card h3 {
+  display: none;
+}
+
+/* ===== Responsive ===== */
+@media (min-width: 600px) {
+  .recipe-row {
+    flex-wrap: wrap;
+  }
+
+  .recipe-card {
+    min-width: 180px;
+    max-width: 240px;
+  }
 }
 
 @media (min-width: 800px) {
   .app-shell {
-    grid-template-columns: 1fr 340px;
+    grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
     gap: 1rem;
     padding: 1rem;
   }
 
   .topbar {
-    grid-column: 1 / -1;
+    grid-column: 1 / 2;
     align-items: center;
   }
 
@@ -255,10 +1043,32 @@ body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .chat-panel {
-    grid-column: 2 / 3;
-    grid-row: 2 / 3;
-    max-height: none;
-    min-height: 0;
+  .chat-panel,
+  .chat-launcher {
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+  .greeting-text {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .idea-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 599px) {
+  .modal-card {
+    width: 100%;
+    max-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .modal-backdrop {
+    padding: 0;
   }
 }
