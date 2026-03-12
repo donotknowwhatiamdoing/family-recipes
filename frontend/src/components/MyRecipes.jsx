@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { fetchMyRecipes, deleteRecipe } from '../api';
+import { fetchMyRecipes, deleteRecipe, fetchRecipe } from '../api';
+import RecipeModal from './RecipeModal';
 
 const DAY_TIME_LABELS = {
   fruehstueck: 'Frühstück',
@@ -17,12 +18,20 @@ export default function MyRecipes({ onBack, onSelectRecipe }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [deleting, setDeleting] = useState(null);
+  const [editingRecipe, setEditingRecipe] = useState(null);
+  const [editingLoadingId, setEditingLoadingId] = useState(null);
 
-  useEffect(() => {
+  function loadRecipes() {
+    setLoading(true);
+    setError('');
     fetchMyRecipes()
       .then(setRecipes)
       .catch((err) => setError(err.message || 'Rezepte konnten nicht geladen werden.'))
       .finally(() => setLoading(false));
+  }
+
+  useEffect(() => {
+    loadRecipes();
   }, []);
 
   async function handleDelete(recipe) {
@@ -39,6 +48,19 @@ export default function MyRecipes({ onBack, onSelectRecipe }) {
       alert(err.message || 'Löschen fehlgeschlagen.');
     } finally {
       setDeleting(null);
+    }
+  }
+
+  async function handleEdit(recipeId) {
+    setEditingLoadingId(recipeId);
+    try {
+      const fullRecipe = await fetchRecipe(recipeId);
+      if (!fullRecipe) throw new Error('Rezept konnte nicht geladen werden.');
+      setEditingRecipe(fullRecipe);
+    } catch (err) {
+      alert(err.message || 'Bearbeiten fehlgeschlagen.');
+    } finally {
+      setEditingLoadingId(null);
     }
   }
 
@@ -75,6 +97,14 @@ export default function MyRecipes({ onBack, onSelectRecipe }) {
               </div>
               <button
                 type="button"
+                className="secondary-btn"
+                onClick={() => handleEdit(recipe.id)}
+                disabled={editingLoadingId === recipe.id}
+              >
+                {editingLoadingId === recipe.id ? '...' : 'Bearbeiten'}
+              </button>
+              <button
+                type="button"
                 className="danger-btn"
                 onClick={() => handleDelete(recipe)}
                 disabled={deleting === recipe.id}
@@ -84,6 +114,17 @@ export default function MyRecipes({ onBack, onSelectRecipe }) {
             </div>
           ))}
         </div>
+      ) : null}
+
+      {editingRecipe ? (
+        <RecipeModal
+          recipe={editingRecipe}
+          onClose={() => setEditingRecipe(null)}
+          onCreated={() => {
+            setEditingRecipe(null);
+            loadRecipes();
+          }}
+        />
       ) : null}
     </section>
   );

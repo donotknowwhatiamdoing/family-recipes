@@ -109,6 +109,14 @@ export async function createRecipe(payload) {
   });
 }
 
+export async function updateRecipe(recipeId, payload) {
+  return request(`/api/recipes/${recipeId}`, {
+    method: 'PUT',
+    headers: withAuth({ 'Content-Type': 'application/json' }),
+    body: JSON.stringify(payload),
+  });
+}
+
 export async function shareRecipePublic(recipeId, expiresAt = '') {
   return request(`/api/recipes/${recipeId}/share-public`, {
     method: 'POST',

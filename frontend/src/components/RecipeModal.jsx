@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { createRecipe } from '../api';
+import { useEffect, useState } from 'react';
+import { createRecipe, updateRecipe } from '../api';
 import ImportDropZone from './ImportDropZone';
 
 const EMPTY_FORM = {
@@ -19,9 +19,44 @@ const EMPTY_FORM = {
   steps: '',
 };
 
-export default function RecipeModal({ onClose, onCreated }) {
+export default function RecipeModal({ onClose, onCreated, recipe = null }) {
   const [recipeForm, setRecipeForm] = useState(EMPTY_FORM);
   const [recipeError, setRecipeError] = useState('');
+  const isEditMode = !!recipe?.id;
+
+  useEffect(() => {
+    if (!recipe) {
+      setRecipeForm(EMPTY_FORM);
+      return;
+    }
+    setRecipeForm({
+      title: recipe.title || '',
+      description: recipe.description || '',
+      day_time: recipe.day_time || '',
+      kcal_per_serving: recipe.kcal_per_serving != null ? String(recipe.kcal_per_serving) : '',
+      protein_g_per_serving: recipe.protein_g_per_serving != null ? String(recipe.protein_g_per_serving) : '',
+      carbs_g_per_serving: recipe.carbs_g_per_serving != null ? String(recipe.carbs_g_per_serving) : '',
+      fat_g_per_serving: recipe.fat_g_per_serving != null ? String(recipe.fat_g_per_serving) : '',
+      servings: recipe.servings != null ? String(recipe.servings) : '',
+      prep_minutes: recipe.prep_minutes != null ? String(recipe.prep_minutes) : '',
+      cook_minutes: recipe.cook_minutes != null ? String(recipe.cook_minutes) : '',
+      visibility: recipe.visibility || 'private',
+      tags: Array.isArray(recipe.tags) ? recipe.tags.join(', ') : '',
+      ingredients: Array.isArray(recipe.ingredients)
+        ? recipe.ingredients
+            .map((i) => {
+              const parts = [
+                i.quantity != null ? String(i.quantity) : '',
+                i.unit || '',
+                i.ingredient_name || '',
+              ].filter(Boolean);
+              return parts.join(' ');
+            })
+            .join('\n')
+        : '',
+      steps: Array.isArray(recipe.steps) ? recipe.steps.map((s) => s.instruction || '').filter(Boolean).join('\n') : '',
+    });
+  }, [recipe]);
 
   function onRecipeInput(event) {
     const { name, value } = event.target;
@@ -81,7 +116,7 @@ export default function RecipeModal({ onClose, onCreated }) {
         .map((t) => t.trim())
         .filter(Boolean);
 
-      await createRecipe({
+      const payload = {
         title: recipeForm.title,
         description: recipeForm.description,
         day_time: recipeForm.day_time || null,
@@ -96,7 +131,13 @@ export default function RecipeModal({ onClose, onCreated }) {
         tags,
         ingredients,
         steps,
-      });
+      };
+
+      if (isEditMode) {
+        await updateRecipe(recipe.id, payload);
+      } else {
+        await createRecipe(payload);
+      }
       setRecipeForm(EMPTY_FORM);
       if (onCreated) onCreated();
       onClose();
@@ -109,13 +150,13 @@ export default function RecipeModal({ onClose, onCreated }) {
     <div className="modal-backdrop" onClick={onClose}>
       <section className="modal-card" onClick={(event) => event.stopPropagation()}>
         <div className="modal-head">
-          <h3>Neues Rezept</h3>
+          <h3>{isEditMode ? 'Rezept bearbeiten' : 'Neues Rezept'}</h3>
           <button type="button" className="chat-minimize" onClick={onClose}>
             Schließen
           </button>
         </div>
 
-        <ImportDropZone onImported={handleImported} />
+        {!isEditMode ? <ImportDropZone onImported={handleImported} /> : null}
 
         <form onSubmit={onRecipeSubmit} className="form-grid">
           <label className="form-label">
@@ -195,7 +236,7 @@ export default function RecipeModal({ onClose, onCreated }) {
             <textarea name="steps" value={recipeForm.steps} onChange={onRecipeInput} />
           </label>
           {recipeError ? <p className="info-note">{recipeError}</p> : null}
-          <button className="primary-btn" type="submit">Speichern</button>
+          <button className="primary-btn" type="submit">{isEditMode ? 'Änderungen speichern' : 'Speichern'}</button>
         </form>
       </section>
     </div>
