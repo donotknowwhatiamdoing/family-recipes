@@ -2,6 +2,34 @@
 
 declare(strict_types=1);
 
+function allowed_party_names(): array
+{
+    return [
+        'Toni & Gudrun',
+        'Gabi & Thomas',
+        'Terry',
+        'CT & Petra',
+        'Toto & Maren',
+        'Steffi & Dirk',
+    ];
+}
+
+function ensure_default_parties(PDO $pdo): void
+{
+    $insert = $pdo->prepare('INSERT INTO parties (name) VALUES (:name) ON DUPLICATE KEY UPDATE name = VALUES(name)');
+    foreach (allowed_party_names() as $name) {
+        $insert->execute([':name' => $name]);
+    }
+}
+
+function ensure_recipe_day_time_schema(PDO $pdo): void
+{
+    $pdo->exec(
+        "ALTER TABLE recipes
+         MODIFY COLUMN day_time ENUM('fruehstueck','mittag','abend','snack','suesses','gebaeck','getraenk','beilage') NULL"
+    );
+}
+
 function slugify(string $text): string
 {
     $text = trim($text);
@@ -99,12 +127,31 @@ function split_csv_filter(mixed $value): array
 
 function list_parties(PDO $pdo): array
 {
-    $stmt = $pdo->query(
+    $allowed = allowed_party_names();
+    if (count($allowed) === 0) {
+        return [];
+    }
+
+    $inPlaceholders = [];
+    $orderPlaceholders = [];
+    $params = [];
+    foreach ($allowed as $idx => $name) {
+        $inKey = ':inName' . $idx;
+        $ordKey = ':ordName' . $idx;
+        $inPlaceholders[] = $inKey;
+        $orderPlaceholders[] = $ordKey;
+        $params[$inKey] = $name;
+        $params[$ordKey] = $name;
+    }
+
+    $stmt = $pdo->prepare(
         'SELECT p.id, p.name,
                 (SELECT COUNT(*) FROM recipes r WHERE r.owner_party_id = p.id AND r.is_deleted = 0) AS recipe_count
          FROM parties p
-         ORDER BY p.name ASC'
+         WHERE p.name IN (' . implode(',', $inPlaceholders) . ')
+         ORDER BY FIELD(p.name, ' . implode(',', $orderPlaceholders) . ')'
     );
+    $stmt->execute($params);
     $rows = $stmt->fetchAll();
     if (!is_array($rows)) {
         return [];

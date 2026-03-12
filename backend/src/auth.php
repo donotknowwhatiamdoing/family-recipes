@@ -4,6 +4,30 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/db.php';
 
+function auth_allowed_party_names(): array
+{
+    return [
+        'Toni & Gudrun',
+        'Gabi & Thomas',
+        'Terry',
+        'CT & Petra',
+        'Toto & Maren',
+        'Steffi & Dirk',
+    ];
+}
+
+function canonical_party_name(string $rawName): ?string
+{
+    $needle = function_exists('mb_strtolower') ? mb_strtolower(trim($rawName)) : strtolower(trim($rawName));
+    foreach (auth_allowed_party_names() as $name) {
+        $candidate = function_exists('mb_strtolower') ? mb_strtolower($name) : strtolower($name);
+        if ($candidate === $needle) {
+            return $name;
+        }
+    }
+    return null;
+}
+
 function ensure_auth_schema(PDO $pdo): void
 {
     $pdo->exec(
@@ -115,10 +139,14 @@ function register_user(PDO $pdo, array $payload): array
     $email = function_exists('mb_strtolower') ? mb_strtolower($emailRaw) : strtolower($emailRaw);
     $password = (string) ($payload['password'] ?? '');
     $displayName = trim((string) ($payload['display_name'] ?? ''));
-    $partyName = trim((string) ($payload['party_name'] ?? ''));
+    $partyNameInput = trim((string) ($payload['party_name'] ?? ''));
+    $partyName = canonical_party_name($partyNameInput);
 
-    if ($email === '' || $password === '' || $displayName === '' || $partyName === '') {
+    if ($email === '' || $password === '' || $displayName === '' || $partyNameInput === '') {
         throw new InvalidArgumentException('email, password, display_name und party_name sind erforderlich.');
+    }
+    if ($partyName === null) {
+        throw new InvalidArgumentException('Bitte eine der 6 verfügbaren Familien auswählen.');
     }
 
     if (strlen($password) < 8) {

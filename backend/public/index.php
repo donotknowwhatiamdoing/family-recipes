@@ -19,6 +19,8 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'OPTIONS') {
 
 $pdo = db();
 ensure_auth_schema($pdo);
+ensure_default_parties($pdo);
+ensure_recipe_day_time_schema($pdo);
 $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $normalizedPath = rtrim($path, '/');

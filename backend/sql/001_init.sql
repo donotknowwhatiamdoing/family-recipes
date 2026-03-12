@@ -9,6 +9,14 @@ CREATE TABLE IF NOT EXISTS parties (
   UNIQUE KEY uq_parties_name (name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+INSERT IGNORE INTO parties (name) VALUES
+  ('Toni & Gudrun'),
+  ('Gabi & Thomas'),
+  ('Terry'),
+  ('CT & Petra'),
+  ('Toto & Maren'),
+  ('Steffi & Dirk');
+
 CREATE TABLE IF NOT EXISTS users (
   id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   party_id BIGINT UNSIGNED NOT NULL,
@@ -32,7 +40,7 @@ CREATE TABLE IF NOT EXISTS recipes (
   created_by_user_id BIGINT UNSIGNED NOT NULL,
   title VARCHAR(180) NOT NULL,
   description TEXT NULL,
-  day_time ENUM('fruehstueck','mittag','abend','snack') NULL,
+  day_time ENUM('fruehstueck','mittag','abend','snack','suesses','gebaeck','getraenk','beilage') NULL,
   kcal_per_serving DECIMAL(8,2) NULL,
   protein_g_per_serving DECIMAL(8,2) NULL,
   carbs_g_per_serving DECIMAL(8,2) NULL,
