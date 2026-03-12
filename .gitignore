@@ -1,6 +1,10 @@
 # Editor
 .vscode/
 
+# IDE
+.kilocode
+.claude
+
 # OS
 .DS_Store
 Thumbs.db
@@ -15,7 +19,6 @@ Thumbs.db
 !.env.example
 !**/.env.example
 sftp.json
-.kilocode
 
 # Dependencies / build (common)
 node_modules/
